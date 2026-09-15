@@ -13,6 +13,11 @@
 
 
 **INSTRUÇÕES:**
+1. git clone https://github.com
+   <br>
+2. npm install
+<br>
+3. npm run dev
 
 
 **LINK DO SITE:**
