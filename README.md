@@ -12,7 +12,7 @@
 • MARIA GABRIELA DE LIMA BONIFÁCIO CRESCENCIO
 
 
-**INSTRUÇÕES:**
+**INSTRUÇÕES DE INSTALAÇÕES:**
 1. git clone https://github.com/Gabislkx/Rede-social
 
 2. npm install
