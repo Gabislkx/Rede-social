@@ -13,7 +13,7 @@
 
 
 **INSTRUÇÕES:**
-1. git clone https://github.com
+1. git clone https://github.com/Gabislkx/Rede-social
 
 2. npm install
 
