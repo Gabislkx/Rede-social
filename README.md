@@ -1,24 +1,46 @@
-**REDE SOCIAL**
+# Rede Social
 
-**DESCRIÇÃO:**
-Rede Social moderna e interativa feito com React. A plataforma permite que as pessoas façam login, naveguem por um feed com postagens e comentários, interajam com curtidas, acessem perfis de outros usuários e enviem mensagens diretas.
+### Descrição
+Rede Social moderna e interativa desenvolvida com React. A plataforma permite que as pessoas façam login, naveguem por um feed com postagens e comentários, interajam com curtidas, acessem perfis de outros usuários e enviem mensagens diretas.
 
+---
 
-**IMAGENS DO PROJETO:**
+### Imagens do Projeto
+*Imagens da interface serão adicionadas em breve.*
 
-**INTEGRANTES DO PROJETO:**
+---
 
-• YSABBELI SCHUENCKEL DE SOUZA
+### Integrantes do Projeto
+* Ysabbeli Schuenckel de Souza
+* Maria Gabriela de Lima Bonifácio Crescencio
 
-• MARIA GABRIELA DE LIMA BONIFÁCIO CRESCENCIO
+---
 
+### Instruções de Instalação e Execução
 
-**INSTRUÇÕES DE INSTALAÇÕES:**
-1. git clone https://github.com/Gabislkx/Rede-social
+Siga os passos abaixo no terminal para rodar o projeto localmente:
 
-2. npm install
+1. **Clonar o repositório:**
+   ```bash
+   git clone https://github.com
+   ```
 
-3. npm run dev
+2. **Entrar na pasta do projeto:**
+   ```bash
+   cd Rede-social
+   ```
 
+3. **Instalar as dependências:**
+   ```bash
+   npm install
+   ```
 
-**LINK DO SITE:**
+4. **Iniciar o servidor local:**
+   ```bash
+   npm run dev
+   ```
+
+---
+
+### Link do Site
+[Acesse o projeto online aqui](INSIRA_O_LINK_DO_SEU_SITE_AQUI)
