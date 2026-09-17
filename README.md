@@ -1,4 +1,4 @@
-# Rede Social
+# Rede Social NOX
 
 ### Descrição
 Rede Social moderna e interativa desenvolvida com React. A plataforma permite que as pessoas façam login, naveguem por um feed com postagens e comentários, interajam com curtidas, acessem perfis de outros usuários e enviem mensagens diretas.
