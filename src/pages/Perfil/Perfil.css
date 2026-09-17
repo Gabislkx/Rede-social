@@ -1,0 +1,271 @@
+body {
+  background-color: #171320;
+  color: #ffffff;
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0px;
+}
+
+.Card-perfil {
+  background-color: #292039;
+  padding: 30px 20px;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 380px;
+  margin: 0 auto 40px auto;
+  text-align: center;
+}
+
+.lado {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.fotoperfil {
+  display: block;
+  width: 180px;
+  height: 180px;
+  min-width: 180px;
+  border-radius: 50%;
+  padding: 4px;
+  background: linear-gradient(90deg, #7c3aed 0%, #c026d3 50%, #8b5cf6 100%);
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.fotoperfil img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.botao {
+  padding: 14px 40px;
+  font-size: 16px;
+  border-radius: 25px;
+  border: none;
+  background-color: #a855f7;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 5px;
+  transition:
+    transform 0.2s,
+    background-color 0.2s;
+}
+
+.botao:hover {
+  background-color: #9333ea;
+  transform: scale(1.03);
+}
+
+.botao.remover {
+  background-color: #3f3356;
+}
+
+.botao.remover:hover {
+  background-color: #524370;
+}
+
+.espaco {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.destaque {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  padding: 4px;
+  background: linear-gradient(90deg, #7c3aed 0%, #c026d3 50%, #8b5cf6 100%);
+  margin: 0;
+  object-fit: cover;
+  box-sizing: border-box;
+}
+
+.grid-feed {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  justify-content: center;
+}
+
+.Foto-Feed {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+}
+
+.fotoperfilcard {
+  display: block;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  border-radius: 50%;
+  padding: 2px;
+  background: linear-gradient(90deg, #7c3aed 0%, #c026d3 50%, #8b5cf6 100%);
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.fotoperfilcard img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.perfil-topo {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+  margin-bottom: 35px;
+}
+
+.perfil-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.perfil-info h2 {
+  margin: 0 0 8px;
+  font-size: 28px;
+  color: #ffffff;
+}
+
+.perfil-info .rj {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #9c97ae;
+  font-size: 14px;
+}
+
+.bio {
+  margin: 12px 0 0;
+  color: #d0cbd8;
+  font-size: 14px;
+}
+
+.estatisticas {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+  margin-left: 20px;
+}
+
+.estatisticas div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.estatisticas strong {
+  font-size: 20px;
+  color: #ffffff;
+}
+
+.estatisticas span {
+  font-size: 12px;
+  color: #9c97ae;
+}
+
+.acoes {
+  display: flex;
+  gap: 10px;
+  margin-left: 10px;
+}
+
+.acoes .botao {
+  margin: 0;
+}
+
+.central {
+  text-align: center;
+  font-weight: bold;
+}
+h2 {
+  font-size: 35px;
+  font-weight: bold;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.rj {
+  font-size: 15px;
+  color: gray;
+  text-align: left;
+}
+
+.roxo {
+  color: #9333ea;
+}
+
+.lados {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.lados p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.lados svg {
+  margin-left: auto;
+  cursor: pointer;
+  font-size: 18px;
+  color: #a0a0a0;
+}
+
+@media (max-width: 700px) {
+  .perfil-topo {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .perfil-info {
+    align-items: center;
+  }
+
+  .perfil-info h2 {
+    font-size: 24px;
+  }
+
+  .estatisticas {
+    margin-left: 0;
+    gap: 30px;
+  }
+
+  .acoes {
+    margin-left: 0;
+  }
+
+  .grid-feed {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .Card-perfil {
+    max-width: 100%;
+    margin-bottom: 25px;
+  }
+
+  .Foto-Feed {
+    height: 350px;
+  }
+}
