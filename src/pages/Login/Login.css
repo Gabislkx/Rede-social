@@ -12,7 +12,7 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 .bg-video {
@@ -23,12 +23,13 @@
   height: 100%;
   object-fit: cover;
   z-index: 0;
+  pointer-events: none;
 }
 
 .login-card {
   position: relative;
   z-index: 1;
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.95);
   padding: 2.5rem;
   border-radius: 12px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
@@ -43,7 +44,7 @@
 }
 
 .continuar {
-  color: #666;
+  color: #4a4a4a;
   margin-bottom: 1.5rem;
   font-size: 0.9rem;
 }
@@ -57,61 +58,125 @@
 .input-group label {
   font-size: 0.875rem;
   font-weight: 600;
-  color: #333;
+  color: #1a1a1a;
   margin-bottom: 0.5rem;
 }
 
 .input-group input {
   padding: 0.75rem;
-  border: 1px solid #ccc;
+  border: 1px solid #767676;
   border-radius: 6px;
   font-size: 1rem;
-  transition: border-color 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  color: #1a1a1a;
+  background-color: #ffffff;
 }
 
-.input-group input:focus {
-  outline: none;
-  border-color: #8a2a9b;
+.input-group input:focus-visible {
+  outline: 2px solid #6d207b;
+  outline-offset: 2px;
+  border-color: #6d207b;
+}
+
+.lembre-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.lembre-group input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: #6d207b;
+}
+
+.lembre-group label {
+  font-size: 0.875rem;
+  color: #4a4a4a;
+  cursor: pointer;
+  margin-top: 0;
+}
+
+.esqueceu-senha-container {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.botao-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.RoxoEsqueceu {
+  color: #6d207b;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.RoxoEsqueceu:hover,
+.RoxoEsqueceu:focus-visible {
+  color: #4a1453;
 }
 
 .botao-submit {
   width: 100%;
   padding: 0.85rem;
-  background-color: #8a2a9b;
-  color: white;
+  background-color: #6d207b;
+  color: #ffffff;
   border: none;
   border-radius: 6px;
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
 .botao-submit:hover {
-  background-color: #6d207b;
+  background-color: #54185f;
+}
+
+.botao-submit:focus-visible {
+  outline: 3px solid #6d207b;
+  outline-offset: 2px;
+}
+
+.botao-submit:disabled {
+  background-color: #9c7aa3;
+  cursor: not-allowed;
 }
 
 .cinza {
   text-align: center;
   font-size: 0.875rem;
-  color: #666;
+  color: #4a4a4a;
   margin-top: 1.5rem;
 }
 
 .Roxo {
-  color: #8a2a9b;
+  color: #6d207b;
   font-weight: 600;
 }
 
-.RoxoEsqueceu {
-  color: #8a2a9b;
-  margin-bottom: 1.5rem;
-  display: flex;
+.Roxo:hover,
+.Roxo:focus-visible {
+  color: #4a1453;
 }
 
-.direita {
-  text-align: right;
-  font-size: 0.9rem;
+.erro-messagem {
+  background-color: #fde8e8;
+  color: #9b1c1c;
+  padding: 0.75rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  margin-bottom: 1.25rem;
+  border: 1px solid #f8b4b4;
 }
 
 @media (max-width: 600px) {
@@ -123,8 +188,8 @@
     padding: 25px 20px;
   }
 
-  .login-card h1 {
-    font-size: 24px;
+  .login-card h2 {
+    font-size: 22px;
   }
 
   .input-group input {

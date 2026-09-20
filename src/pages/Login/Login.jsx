@@ -34,15 +34,26 @@ export default function Login({ setLogado }) {
 
   return (
     <div className="login">
-      <video className="bg-video" autoPlay loop muted playsInline>
+      <video
+        className="bg-video"
+        autoPlay
+        loop
+        muted
+        playsInline
+        aria-hidden="true"
+      >
         <source src={bgVideo} type="video/mp4" />
       </video>
 
-      <div className="login-card">
-        <h1>Bem-vindo(a)</h1>
+      <main className="login-card">
+        <h2>Bem-vindo(a)</h2>
         <p className="continuar">Faça login para continuar</p>
 
-        {erro && <div className="erro-messagem">{erro}</div>}
+        {erro && (
+          <div className="erro-messagem" role="alert" aria-live="assertive">
+            {erro}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit}>
           <div className="input-group">
@@ -54,6 +65,7 @@ export default function Login({ setLogado }) {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              autoComplete="email"
             />
           </div>
 
@@ -66,28 +78,48 @@ export default function Login({ setLogado }) {
               value={senha}
               onChange={(e) => setSenha(e.target.value)}
               required
+              autoComplete="current-password"
             />
           </div>
-          <div>
+
+          <div className="lembre-group">
             <input type="checkbox" name="lembre" id="lembre" />
-            <label htmlFor="checkbox" className="cinza">
-              {" "}
+            <label htmlFor="lembre" className="cinza">
               Lembre-se
             </label>
           </div>
-          <div className="esqueceu a senha">
-            <p className="RoxoEsqueceu direita">Esqueceu a senha?</p>
+
+          <div className="esqueceu-senha-container">
+            <button
+              type="button"
+              className="RoxoEsqueceu direita botao-link"
+              onClick={() => navigate("/recuperar-senha")}
+            >
+              Esqueceu a senha?
+            </button>
           </div>
 
-          <button type="submit" className="botao-submit" disabled={loading}>
+          <button
+            type="submit"
+            className="botao-submit"
+            disabled={loading}
+            aria-label="Entrar na conta"
+          >
             {loading ? "Entrando..." : "Entrar"}
           </button>
         </form>
 
         <p className="cinza">
-          Não tem uma conta? <p className="Roxo">Cadastre-se</p>
+          Não tem uma conta?{" "}
+          <button
+            type="button"
+            className="Roxo botao-link"
+            onClick={() => navigate("/cadastro")}
+          >
+            Cadastre-se
+          </button>
         </p>
-      </div>
+      </main>
     </div>
   );
 }

@@ -6,7 +6,14 @@ import { FaLocationDot } from "react-icons/fa6";
 import { IoHeart, IoHeartOutline, IoChatbubbleOutline } from "react-icons/io5";
 import { RiSendInsLine, RiBookmarkFill, RiBookmarkLine } from "react-icons/ri";
 
-function CardPerfil({ imageSrc, initialLikes = 10 }) {
+import foto01 from "../imagem/foto01.jpg";
+import foto02 from "../imagem/foto02.jpg";
+import foto03 from "../imagem/foto03.jpg";
+import foto04 from "../imagem/foto04.jpeg";
+import foto05 from "../imagem/foto05.jpg";
+import foto06 from "../imagem/foto06.webp";
+
+function CardPerfil({ imageSrc, initialLikes = 10, index }) {
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(initialLikes);
   const [isSaved, setIsSaved] = useState(false);
@@ -21,44 +28,72 @@ function CardPerfil({ imageSrc, initialLikes = 10 }) {
   }
 
   return (
-    <div className="Card-perfil">
-      <div className="lados">
+    <article className="Card-perfil">
+      <header className="lados">
         <img
           src="https://i.pinimg.com/736x/96/b5/1a/96b51a0d98c37f9ade70cbbcfb2c0f0b.jpg"
           className="fotoperfilcard"
-          alt="Avatar"
+          alt="Foto de perfil de Maria Cecilia Nevez"
+          width="40"
+          height="40"
+          loading="lazy"
         />
         <div>
-          <p>Maria Cecilia Nevez</p>
+          <h3>Maria Cecilia Nevez</h3>
           <span className="rj">
-            <FaLocationDot /> Rio de Janeiro
+            <FaLocationDot aria-hidden="true" /> Rio de Janeiro
           </span>
         </div>
-        <FiMoreHorizontal />
-      </div>
+        <button type="button" aria-label="Mais opções da publicação" className="btn-icon">
+          <FiMoreHorizontal aria-hidden="true" />
+        </button>
+      </header>
 
-      <img src={imageSrc} className="Foto-Feed" alt="Post" />
+      <img
+        src={imageSrc}
+        className="Foto-Feed"
+        alt={`Publicação do feed ${index + 1}`}
+        loading="lazy"
+        decoding="async"
+      />
 
-      <div className="lado">
-        {isLiked ? (
-          <IoHeart onClick={handleLike} className="filled" />
-        ) : (
-          <IoHeartOutline onClick={handleLike} />
-        )}
+      <footer className="lado">
+        <button
+          type="button"
+          onClick={handleLike}
+          aria-label={isLiked ? "Descurtir publicação" : "Curtir publicação"}
+          className="botao-icones"
+        >
+          {isLiked ? (
+            <IoHeart className="filled" aria-hidden="true" />
+          ) : (
+            <IoHeartOutline aria-hidden="true" />
+          )}
+        </button>
         <p>{likeCount}</p>
 
-        <IoChatbubbleOutline />
-        <p></p>
+        <button type="button" aria-label="Comentar" className="btn-icon">
+          <IoChatbubbleOutline aria-hidden="true" />
+        </button>
 
-        <RiSendInsLine />
+        <button type="button" aria-label="Compartilhar" className="btn-icon">
+          <RiSendInsLine aria-hidden="true" />
+        </button>
 
-        {isSaved ? (
-          <RiBookmarkFill onClick={handleSave} />
-        ) : (
-          <RiBookmarkLine onClick={handleSave} />
-        )}
-      </div>
-    </div>
+        <button
+          type="button"
+          onClick={handleSave}
+          aria-label={isSaved ? "Remover dos salvos" : "Salvar publicação"}
+          className="botao-icones"
+        >
+          {isSaved ? (
+            <RiBookmarkFill aria-hidden="true" />
+          ) : (
+            <RiBookmarkLine aria-hidden="true" />
+          )}
+        </button>
+      </footer>
+    </article>
   );
 }
 
@@ -74,107 +109,104 @@ export default function Perfil() {
     setIsBlocked((prev) => !prev);
   }
 
-  const posts = [
-    "https://i.pinimg.com/236x/7f/ff/62/7fff62c5465a13413173ef4a5a669dce.jpg",
-    "https://i.pinimg.com/736x/89/6d/db/896ddbff3020b153d0934f68fd2c640c.jpg",
-    "https://i.pinimg.com/originals/8b/c5/9e/8bc59e859d00d7081eb343a85e3614f2.jpg",
-    "https://historiasdeanimais.com.br/wp-content/uploads/2022/12/1.jpeg",
-    "https://i.pinimg.com/736x/20/b4/67/20b46774cde1e9d04a06fd3d8f154c28.jpg",
-    "https://preview.redd.it/is-my-cat-koko-a-maine-coon-we-were-told-so-some-years-ago-v0-wgf7h5bvlac91.jpg?width=1080&crop=smart&auto=webp&s=a4e75644066412604a8cdbfb0ccdf1d314fbe563",
+  const posts = [foto01, foto02, foto03, foto04, foto05, foto06];
+
+  const destaques = [
+    {
+      src: "https://tse2.mm.bing.net/th/id/OIP.JZXvkOB3QQ7ooTYLkzvkKAHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3",
+      label: "Love",
+    },
+    {
+      src: "https://i.pinimg.com/474x/f8/9d/1d/f89d1dd68ab2e02495e0906c31c144b8.jpg?nii=t",
+      label: "Me",
+    },
+    {
+      src: "https://i.pinimg.com/736x/05/39/6f/05396fc7c661eada10047ec67effbee3.jpg",
+      label: "Best",
+    },
+    {
+      src: "https://westblock-fotodesign.de/images/hochheimer-markt/hochheimer-markt-024.jpg",
+      label: "Place",
+    },
   ];
 
   return (
-    <div>
-      <h1>LOGO</h1>
+    <main className="perfil-container">
+      <header className="perfil-header">
+        <h1>LOGO</h1>
 
-      <div className="perfil-topo">
-        <img
-          src="https://i.pinimg.com/736x/96/b5/1a/96b51a0d98c37f9ade70cbbcfb2c0f0b.jpg"
-          className="fotoperfil"
-          alt="Perfil"
-        />
+        <section className="perfil-topo">
+          <img
+            src="https://i.pinimg.com/736x/96/b5/1a/96b51a0d98c37f9ade70cbbcfb2c0f0b.jpg"
+            className="fotoperfil"
+            alt="Foto de perfil de Maria Cecilia Nevez"
+            width="150"
+            height="150"
+          />
 
-        <div className="perfil-info">
-          <h2>Maria cecilia nevez</h2>
-
-          <span className="rj">
-            <FaLocationDot /> Rio de Janeiro
-          </span>
-
-          <p className="bio">Carpe Diem.</p>
-        </div>
-
-        <div className="estatisticas">
-          <div>
-            <strong>1250</strong>
-            <span>seguidores</span>
+          <div className="perfil-info">
+            <h2>Maria cecilia nevez</h2>
+            <span className="rj">
+              <FaLocationDot aria-hidden="true" /> Rio de Janeiro
+            </span>
+            <p className="bio">Carpe Diem.</p>
           </div>
 
-          <div>
-            <strong>900</strong>
-            <span>seguindo</span>
+          <div className="estatisticas">
+            <div>
+              <strong>1250</strong>
+              <span>seguidores</span>
+            </div>
+            <div>
+              <strong>900</strong>
+              <span>seguindo</span>
+            </div>
           </div>
-        </div>
 
-        <div className="acoes">
-          <button className="botao" onClick={handleFollowToggle}>
-            {isFollowing ? "Seguindo" : "Seguir"}
-          </button>
+          <div className="acoes">
+            <button
+              type="button"
+              className="botao"
+              onClick={handleFollowToggle}
+              aria-label={isFollowing ? "Deixar de seguir perfil" : "Seguir perfil"}
+            >
+              {isFollowing ? "Seguindo" : "Seguir"}
+            </button>
 
-          <button className="botao remover" onClick={handleBlockToggle}>
-            {isBlocked ? "Bloqueado" : "Bloquear"}
-          </button>
-        </div>
-      </div>
-      <br />
-      <br />
+            <button
+              type="button"
+              className="botao remover"
+              onClick={handleBlockToggle}
+              aria-label={isBlocked ? "Desbloquear perfil" : "Bloquear perfil"}
+            >
+              {isBlocked ? "Bloqueado" : "Bloquear"}
+            </button>
+          </div>
+        </section>
+      </header>
 
-      <div className="espaco">
-        <div className="central">
-          <img
-            src="https://tse2.mm.bing.net/th/id/OIP.JZXvkOB3QQ7ooTYLkzvkKAHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3"
-            className="destaque"
-            alt="Destaque"
-          />
-          <p>Love</p>
-        </div>
 
-        <div className="central">
-          <img
-            src="https://i.pinimg.com/474x/f8/9d/1d/f89d1dd68ab2e02495e0906c31c144b8.jpg?nii=t"
-            className="destaque"
-            alt="Destaque"
-          />
-          <p>Me</p>
-        </div>
-
-        <div className="central">
-          <img
-            src="https://i.pinimg.com/736x/05/39/6f/05396fc7c661eada10047ec67effbee3.jpg"
-            className="destaque"
-            alt="Destaque"
-          />
-          <p>Best</p>
-        </div>
-
-        <div className="central">
-          <img
-            src="https://westblock-fotodesign.de/images/hochheimer-markt/hochheimer-markt-024.jpg"
-            className="destaque"
-            alt="Destaque"
-          />
-          <p>Place</p>
-        </div>
-      </div>
-
-      <br />
-      <br />
-
-      <div className="grid-feed">
-        {posts.map((imgUrl, index) => (
-          <CardPerfil key={index} imageSrc={imgUrl} />
+      <section className="espaco" aria-label="Destaques do perfil">
+        {destaques.map((item, idx) => (
+          <div className="central" key={idx}>
+            <img
+              src={item.src}
+              className="destaque"
+              alt={`Destaque ${item.label}`}
+              loading="lazy"
+              width="80"
+              height="80"
+            />
+            <p>{item.label}</p>
+          </div>
         ))}
-      </div>
-    </div>
+      </section>
+
+      <section className="grid-feed" aria-label="Publicações">
+        {posts.map((imgUrl, index) => (
+          <CardPerfil key={index} index={index} imageSrc={imgUrl} />
+        ))}
+      </section>
+    </main>
   );
 }
