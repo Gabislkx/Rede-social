@@ -1,22 +1,49 @@
-import React, { useState, useRef } from "react";
-import { FaRegHeart, FaHeart, FaRegComment, FaCheck } from "react-icons/fa";
+import React, { useState, useRef, memo, useEffect } from "react";
+import { 
+  FaRegHeart, 
+  FaHeart, 
+  FaRegComment, 
+  FaCheck, 
+  FaChevronLeft, 
+  FaChevronRight 
+} from "react-icons/fa";
 import { RiBookmarkLine, RiBookmarkFill } from "react-icons/ri";
-import {
-  IoMdArrowDropleftCircle,
-  IoMdArrowDroprightCircle,
-} from "react-icons/io";
 import "./Post.css";
 
-function Post({ post }) {
-  const [curtido, setCurtido] = useState(post.curtidoPeloUsuario);
-  const [curtidas, setCurtidas] = useState(post.curtidas);
-  const [salvo, setSalvo] = useState(post.salvoPeloUsuario);
+const Post = memo(function Post({ post }) {
+  const [curtido, setCurtido] = useState(post?.curtidoPeloUsuario || false);
+  const [curtidas, setCurtidas] = useState(post?.curtidas || 0);
+  const [salvo, setSalvo] = useState(post?.salvoPeloUsuario || false);
   const [imagemAtual, setImagemAtual] = useState(0);
-  const [comentarios, setComentarios] = useState(post.comentarios || []);
+  const [comentarios, setComentarios] = useState(post?.comentarios || []);
   const [novoComentario, setNovoComentario] = useState("");
   const [mostrarTodosComentarios, setMostrarTodosComentarios] = useState(false);
 
   const commentInputRef = useRef(null);
+
+
+  useEffect(() => {
+    if (!post) return;
+
+    let metaDescription = document.querySelector('meta[name="description"]');
+    if (!metaDescription) {
+      metaDescription = document.createElement("meta");
+      metaDescription.name = "description";
+      document.head.appendChild(metaDescription);
+    }
+
+    const autor = post.usuario?.nome || post.usuario?.username || "Usuário";
+    const legendaLimpa = post.legenda ? post.legenda.trim() : "Confira esta publicação na plataforma.";
+    const descricaoText = `Publicação de ${autor}: ${legendaLimpa}`;
+
+    metaDescription.content = descricaoText.substring(0, 160);
+
+    return () => {
+      metaDescription.content = "";
+    };
+  }, [post]);
+
+  if (!post) return null;
 
   const handleLike = () => {
     setCurtido((prev) => !prev);
@@ -25,7 +52,7 @@ function Post({ post }) {
 
   const handleCommentSubmit = (e) => {
     e.preventDefault();
-    if (novoComentario.trim() === "") return;
+    if (!novoComentario.trim()) return;
 
     const comentario = {
       id: Date.now(),
@@ -39,26 +66,65 @@ function Post({ post }) {
     setNovoComentario("");
   };
 
+  // SEO: Schema.org em JSON-LD
+  const jsonLdPost = {
+    "@context": "https://schema.org",
+    "@type": "SocialMediaPosting",
+    "headline": post.legenda ? post.legenda.substring(0, 110) : "Publicação na Nox",
+    "articleBody": post.legenda || "",
+    "datePublished": post.dataPublicacao,
+    "author": {
+      "@type": "Person",
+      "name": post.usuario?.nome || "Usuário",
+      "alternateName": `@${post.usuario?.username || ""}`,
+      "image": post.usuario?.avatar
+    },
+    "interactionStatistic": [
+      {
+        "@type": "InteractionCounter",
+        "interactionType": "https://schema.org/LikeAction",
+        "userInteractionCount": curtidas
+      },
+      {
+        "@type": "InteractionCounter",
+        "interactionType": "https://schema.org/CommentAction",
+        "userInteractionCount": comentarios.length
+      }
+    ]
+  };
+
+  const midias = post.midia || [];
+
   return (
     <article className="post">
+      {/* SEO: Microdados */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdPost) }}
+      />
+
+      {/* HEADER DA PUBLICAÇÃO */}
+      
       <header className="post-header">
         <img
-          src={post.usuario.avatar}
-          alt={`Foto de perfil de ${post.usuario.nome}`}
+          src={post.usuario?.avatar}
+          alt={`Foto de perfil de ${post.usuario?.nome || "usuário"}`}
           width="40"
           height="40"
           loading="lazy"
+          decoding="async"
+          fetchPriority="low"
         />
         <div className="post-user">
           <strong>
-            {post.usuario.username}
-            {post.usuario.verificado && (
+            {post.usuario?.username}
+            {post.usuario?.verificado && (
               <span className="verificado" title="Conta verificada">
                 <FaCheck aria-hidden="true" />
               </span>
             )}
           </strong>
-          <span>{post.usuario.nome}</span>
+          <span>{post.usuario?.nome}</span>
 
           {post.localizacao && (
             <small className="post-location">{post.localizacao}</small>
@@ -74,21 +140,25 @@ function Post({ post }) {
         </button>
       </header>
 
+      {/* CONTAINER DE MÍDIA */}
       <div className="post-image-container">
         {post.tipo === "reels" ? (
           <video
             className="post-image"
-            src={post.midia[0].url}
-            poster={post.midia[0].thumbnail}
+            src={midias[0]?.url}
+            poster={midias[0]?.thumbnail}
             controls
+            preload="none"
             aria-label="Vídeo da publicação"
+            width="600"
+            height="600"
           />
-        ) : post.tipo === "carousel" ? (
+        ) : post.tipo === "carousel" && midias.length > 0 ? (
           <div className="carousel">
             <img
               className="post-image"
-              src={post.midia[imagemAtual].url}
-              alt={post.midia[imagemAtual].alt || `Imagem ${imagemAtual + 1} do carrossel`}
+              src={midias[imagemAtual]?.url}
+              alt={midias[imagemAtual]?.alt || `Imagem ${imagemAtual + 1} do carrossel`}
               loading="lazy"
               decoding="async"
               width="600"
@@ -101,25 +171,27 @@ function Post({ post }) {
                 onClick={() => setImagemAtual((prev) => prev - 1)}
                 aria-label="Imagem anterior"
               >
-                <IoMdArrowDropleftCircle aria-hidden="true" />
+                <FaChevronLeft aria-hidden="true" />
               </button>
             )}
-            {imagemAtual < post.midia.length - 1 && (
+            {imagemAtual < midias.length - 1 && (
               <button
                 type="button"
                 className="carousel-button carousel-next"
                 onClick={() => setImagemAtual((prev) => prev + 1)}
                 aria-label="Próxima imagem"
               >
-                <IoMdArrowDroprightCircle aria-hidden="true" />
+                <FaChevronRight aria-hidden="true" />
               </button>
             )}
-            <div className="carousel-indicators" role="tablist">
-              {post.midia.map((_, index) => (
+            <div className="carousel-indicators" role="tablist" aria-label="Navegação do carrossel">
+              {midias.map((_, index) => (
                 <span
-                  key={index}
+                  key={`indicator-${post.id}-${index}`}
                   className={index === imagemAtual ? "active" : ""}
-                  aria-label={`Slide ${index + 1}`}
+                  role="tab"
+                  aria-selected={index === imagemAtual}
+                  aria-label={`Ir para a imagem ${index + 1}`}
                 ></span>
               ))}
             </div>
@@ -127,8 +199,8 @@ function Post({ post }) {
         ) : (
           <img
             className="post-image"
-            src={post.midia[0].url}
-            alt={post.midia[0].alt || "Imagem da publicação"}
+            src={midias[0]?.url}
+            alt={midias[0]?.alt || "Imagem da publicação"}
             loading="lazy"
             decoding="async"
             width="600"
@@ -137,6 +209,7 @@ function Post({ post }) {
         )}
       </div>
 
+      {/* AÇÕES */}
       <div className="post-actions">
         <div className="post-actions-left">
           <button
@@ -176,11 +249,14 @@ function Post({ post }) {
         </button>
       </div>
 
+      {/* CONTEÚDO E COMENTÁRIOS */}
       <div className="post-info">
-        <strong>{curtidas} curtidas</strong>
+        <strong className="post-likes-count">
+          {curtidas.toLocaleString("pt-BR")} {curtidas === 1 ? "curtida" : "curtidas"}
+        </strong>
 
-        <p>
-          <strong>{post.usuario.username}</strong> {post.legenda}
+        <p className="post-caption">
+          <strong>{post.usuario?.username}</strong> {post.legenda}
         </p>
 
         {comentarios.length > 0 && (
@@ -188,45 +264,48 @@ function Post({ post }) {
             <button
               type="button"
               className="view-comments"
-              onClick={() =>
-                setMostrarTodosComentarios((prev) => !prev)
-              }
+              onClick={() => setMostrarTodosComentarios((prev) => !prev)}
               aria-expanded={mostrarTodosComentarios}
             >
               {mostrarTodosComentarios
                 ? "Ocultar comentários"
                 : `Ver todos os ${comentarios.length} comentários`}
             </button>
-            {(mostrarTodosComentarios
-              ? comentarios
-              : comentarios.slice(0, 2)
-            ).map((comentario) => (
-              <p key={comentario.id}>
-                <strong>{comentario.username}</strong> {comentario.texto}
-              </p>
-            ))}
+            {(mostrarTodosComentarios ? comentarios : comentarios.slice(0, 2)).map(
+              (comentario) => (
+                <p key={comentario.id} className="comment-item">
+                  <strong>{comentario.username}</strong> {comentario.texto}
+                </p>
+              )
+            )}
           </div>
         )}
       </div>
 
-      <time
-        className="post-date"
-        dateTime={post.dataPublicacao}
-      >
-        {new Date(post.dataPublicacao).toLocaleDateString("pt-BR")}
-      </time>
+      {/* DATA */}
+      {post.dataPublicacao && (
+        <time className="post-date" dateTime={post.dataPublicacao}>
+          {new Date(post.dataPublicacao).toLocaleDateString("pt-BR", {
+            day: "2-digit",
+            month: "long",
+            year: "numeric",
+          })}
+        </time>
+      )}
 
+      {/* FORMULÁRIO DE COMENTÁRIO */}
       <form className="add-comment" onSubmit={handleCommentSubmit}>
-        <label htmlFor={`comentario-${post.id}`} className="sr-only">
+        <label htmlFor={`comentario-input-${post.id}`} className="sr-only">
           Adicionar um comentário
         </label>
         <input
           ref={commentInputRef}
-          id={`comentario-${post.id}`}
+          id={`comentario-input-${post.id}`}
           type="text"
           placeholder="Adicionar um comentário..."
           value={novoComentario}
           onChange={(e) => setNovoComentario(e.target.value)}
+          autoComplete="off"
         />
 
         <button
@@ -239,6 +318,6 @@ function Post({ post }) {
       </form>
     </article>
   );
-}
+});
 
 export default Post;

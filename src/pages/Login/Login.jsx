@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import bgVideo from "./vecteezy_graphic-animated-background_40517718.mp4";
 import "./Login.css";
@@ -7,29 +7,37 @@ export default function Login({ setLogado }) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [erro, setErro] = useState("");
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  useEffect(() => {
+    document.title = "Login | Nome do Seu App";
+
+    let metaDescription = document.querySelector('meta[name="description"]');
+    if (!metaDescription) {
+      metaDescription = document.createElement("meta");
+      metaDescription.name = "description";
+      document.head.appendChild(metaDescription);
+    }
+
+    metaDescription.content =
+      "Acesse sua conta para continuar. Entre com seu e-mail e senha para acessar a plataforma.";
+
+    return () => {
+      metaDescription.content = "";
+    };
+  }, []);
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setErro("");
 
     if (!email || !senha) {
       setErro("Por favor, preencha todos os campos.");
       return;
     }
 
-    setLoading(true);
-
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      setLogado(true);
-      navigate("/feed");
-    } catch (err) {
-      setErro("E-mail ou senha incorretos.");
-    } finally {
-      setLoading(false);
-    }
+    setErro("");
+    setLogado(true);
+    navigate("/feed");
   };
 
   return (
@@ -102,10 +110,9 @@ export default function Login({ setLogado }) {
           <button
             type="submit"
             className="botao-submit"
-            disabled={loading}
             aria-label="Entrar na conta"
           >
-            {loading ? "Entrando..." : "Entrar"}
+            Entrar
           </button>
         </form>
 

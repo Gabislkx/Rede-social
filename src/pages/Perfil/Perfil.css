@@ -14,10 +14,15 @@ body {
 }
 
 .perfil-header h1 {
-  font-size: 28px;
-  font-weight: 800;
-  color: #ffffff;
-  margin-bottom: 24px;
+  margin: 0 0 24px 0;
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  width: 120px;
+  height: auto;
+  object-fit: contain;
 }
 
 .perfil-topo {
@@ -157,7 +162,6 @@ body {
   margin-bottom: 6px;
 }
 
-
 .grid-feed {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -242,12 +246,11 @@ body {
   transform: scale(1.1);
 }
 
-.botao-icones:focus-visible,
 .botao-icones:focus-visible {
   outline: 2px solid #c026d3;
 }
 
-.lados .botao-icones {
+.lados .btn-icon {
   margin-left: auto;
   font-size: 20px;
   color: #c3c0d2;
@@ -256,7 +259,6 @@ body {
 .filled {
   color: #c026d3;
 }
-
 
 .sr-only {
   position: absolute;
@@ -270,7 +272,6 @@ body {
   border: 0;
 }
 
-
 @media (max-width: 900px) {
   .grid-feed {
     grid-template-columns: repeat(2, 1fr);
@@ -278,6 +279,10 @@ body {
 }
 
 @media (max-width: 700px) {
+  .perfil-header h1 {
+    justify-content: center;
+  }
+
   .perfil-topo {
     flex-direction: column;
     gap: 20px;
