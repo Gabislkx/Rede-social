@@ -130,10 +130,29 @@
 }
 
 .nenhum-usuario {
-    margin: 25px 0;
-    color: #777284;
-    font-size: 13px;
-    text-align: center;
+  margin: 25px 0;
+  color: #777284;
+  font-size: 13px;
+  text-align: center;
+}
+
+.topo-pesquisa {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  width: 100%;
+  margin-bottom: 25px;
+}
+
+.logo-nox {
+  width: 120px;
+  height: auto;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.topo-pesquisa .barra-pesquisa {
+  flex: 1;
 }
 
 @media (max-width: 900px) {

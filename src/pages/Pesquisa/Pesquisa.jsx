@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { instagramPosts, explorePosts } from "../../services/api";
 import { FaVideo, FaHeart, FaRegComment } from "react-icons/fa";
 import "./Pesquisa.css";
+import logoImg from "../../2.png";
 
 function Pesquisa() {
   const [busca, setBusca] = useState("");
@@ -34,12 +35,20 @@ function Pesquisa() {
             post.usuario.nome.toLowerCase().includes(busca.toLowerCase())
         );
 
-  return (
-    <main className="pesquisa">
+return (
+  <main className="pesquisa">
+    <div className="topo-pesquisa">
+      <img
+        src={logoImg}
+        alt="Nox Social"
+        className="logo-nox"
+      />
+
       <div className="barra-pesquisa">
         <label htmlFor="input-pesquisa" className="sr-only">
           Pesquisar usuários
         </label>
+
         <input
           id="input-pesquisa"
           type="text"
@@ -49,8 +58,9 @@ function Pesquisa() {
           aria-label="Campo de pesquisa de usuários"
         />
       </div>
+    </div>
 
-      <div className="resultados-pesquisa" aria-live="polite">
+    <div className="resultados-pesquisa" aria-live="polite">
         {busca.trim() !== "" && perfisFiltrados.length === 0 ? (
           <p className="nenhum-usuario">Nenhum usuário encontrado.</p>
         ) : (

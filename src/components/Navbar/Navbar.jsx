@@ -5,7 +5,7 @@ import "./Navbar.css";
 function Navbar({ setMostrarPostagem }) {
   return (
     <nav className="navbar">
-      <Link to="/">
+      <Link to="/feed">
         <FaHome />
       </Link>
 

@@ -18,3 +18,17 @@
     padding: 0 8px;
   }
 }
+
+.topo-feed {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  width: 100%;
+}
+
+.logo-nox {
+  width: 120px;
+  height: auto;
+  object-fit: contain;
+  flex-shrink: 0;
+}
