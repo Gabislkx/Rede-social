@@ -43,4 +43,4 @@ Siga os passos abaixo no terminal para rodar o projeto localmente:
 ---
 
 ### Link do Site
-[Acesse o projeto online aqui](INSIRA_O_LINK_DO_SEU_SITE_AQUI)
+[Acesse o projeto online aqui](https://rede-social-nox.web.app/perfil)
