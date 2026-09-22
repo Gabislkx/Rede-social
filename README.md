@@ -6,7 +6,7 @@ Rede Social moderna e interativa desenvolvida com React. A plataforma permite qu
 ---
 
 ### Imagens do Projeto
-*Imagens da interface serão adicionadas em breve.*
+![Print do projeto](./)
 
 ---
 
